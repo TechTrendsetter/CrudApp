@@ -1,0 +1,124 @@
+﻿@model Abdullah.Models.Student
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+@Html.Raw(TempData["DeleteMessage"])
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="robots" content="all" />
+
+    <title>Admin Panel</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <link rel="Shortcut Icon" type="image/x-icon" href="http://www.activelayouts.com/cms.ico" />
+</head>
+
+<body>
+
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="formDiv">
+            <table class="form-spacing">
+                <tr>
+                    <td class="cell-one">Passing Marks:</td>
+                    <td class="cell-two">60/100</td>
+                </tr>
+                <tr>
+                    <td class="cell-one">* Full Name:</td>
+                    <td class="cell-two">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="cell-one">* Marks:</td>
+                    <td class="cell-two">
+                        @Html.EditorFor(model => model.marks, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="cell-one">Fee Paid:</td>
+                    <td class="two-cells">
+                        @Html.RadioButtonFor(m => m.fees, "Yes", new { @class = "none", required = "This Field is Required" }) Yes
+                        @Html.RadioButtonFor(m => m.fees, "No", new { @class = "none" }) No
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell-one">&nbsp;</td>
+                    <td class="cell-two">
+                        <input class="standardButton" type="submit" value="Submit Data" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+
+    @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+    {
+        <div class="main-grid">
+
+            <input class="standardButton" type="submit" value="Delete" />
+
+            <table class="gridTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td style="width: 20px;" class="heading-cell">&nbsp;</td>
+                    <td class="heading-cell">Full Name</td>
+                    <td class="heading-cell">Marks</td>
+                    <td class="heading-cell">Fee Paid</td>
+                    <td class="heading-cell">Pass/Fail</td>
+                    <td class="heading-cell">Edit</td>
+                </tr>
+                @foreach (var item in ViewBag.data)
+                {
+                    <tr>
+                        <td class="grid-cell"><input type="checkbox" name="ID" value="@item.id" /></td>
+                        <td class="grid-cell">@item.name</td>
+                        <td class="grid-cell">@item.marks</td>
+                        <td class="grid-cell">@item.fees</td>
+                        <td class="grid-cell">
+
+                            @if (item.marks >= 60)
+                            {
+                                <span class="green">Pass</span>
+                            }
+
+                            else
+
+                            {
+                                <span class="red">Fail</span>
+                            }
+
+
+                        </td>
+                        <td class="grid-cell"><a href="#">Edit</a></td>
+                    </tr>
+                }
+
+
+            </table>
+
+        </div>
+    }
+</body>
+
+</html>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<ul>
+</ul>
