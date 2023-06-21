@@ -114,7 +114,7 @@ namespace Abdullah.Controllers
 
 
 
-        public ActionResult Delete(IEnumerable<int> ID)
+        public ActionResult Delete(IEnumerable<int> jkjkjkj)
         {
             Student std = new Student();
             foreach (int id in ID)
