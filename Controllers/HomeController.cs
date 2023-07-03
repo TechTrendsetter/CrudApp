@@ -15,10 +15,41 @@ namespace Abdullah.Controllers
         //Get : Home
         public ActionResult Index()
         {
-            ViewBag.data = db.Students.ToList();
-            return View();
+            //ViewBag.data = db.Students.ToList();
+
+            var StudentList = db.Students.ToList();
+            var StudentAdd = new Student();
+
+            var VM = new StudentVM
+            {
+
+
+                Students = StudentList,
+                Student = StudentAdd
+
+            };
+
+            return View(VM);
         }
 
+        public ActionResult Edit(int id)
+        {
+            //ViewBag.data = db.Students.ToList();
+            var StudentAdd = db.Students.SingleOrDefault(m => m.id == id);
+            var StudentList = db.Students.ToList();
+           
+
+            var VM = new StudentVM
+            {
+
+
+                Students = StudentList,
+                Student = StudentAdd
+
+            };
+
+            return View("Index",VM);
+        }
         public ActionResult About()
         {
 
@@ -56,9 +87,11 @@ namespace Abdullah.Controllers
         }
 
         // GET: Employee/Edit/5
-        public ActionResult Edit(int id)
-        { var Students = db.Students.Single(m => m.id == id);
-            return View(Students);}
+        //public ActionResult Edit(int id)
+        //{
+        //    var Students = db.Students.Single(m => m.id == id);
+        //    return View(Students);
+        //}
 
         // POST: Employee/Edit/5
         [HttpPost]
@@ -86,7 +119,7 @@ namespace Abdullah.Controllers
         //    var StudentIdRow = db.Students.Where(model => model.id == id).FirstOrDefault();
         //    return View(StudentIdRow);
         //}
- 
+
         //public ActionResult Delete(int ID)
         //{
         //    if(ID == 0 || ID == null)
@@ -108,13 +141,13 @@ namespace Abdullah.Controllers
         //            TempData["DeleteMessage"] = "<script>alert('Data not Deleted !!')</script>";
         //        }
         //    }
-    
+
         //    return RedirectToAction("Index");
         //}
 
 
 
-        public ActionResult Delete(IEnumerable<int> jkjkjkj)
+        public ActionResult Delete(IEnumerable<int> ID)
         {
             Student std = new Student();
             foreach (int id in ID)
@@ -123,4 +156,8 @@ namespace Abdullah.Controllers
                 db.Students.Remove(std);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");}}}
+            return RedirectToAction("Index");
+        }
+
+    }
+}

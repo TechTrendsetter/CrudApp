@@ -1,4 +1,6 @@
-﻿@model Abdullah.Models.Student
+﻿@model Abdullah.Models.StudentVM
+
+@*@model Abdullah.Models.Student*@
 @{
     ViewBag.Title = "Index";
 }
@@ -38,21 +40,21 @@
                 <tr>
                     <td class="cell-one">* Full Name:</td>
                     <td class="cell-two">
-                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
+                        @Html.EditorFor(model => model.Student.name, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
                     </td>
 
                 </tr>
                 <tr>
                     <td class="cell-one">* Marks:</td>
                     <td class="cell-two">
-                        @Html.EditorFor(model => model.marks, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
+                        @Html.EditorFor(model => model.Student.marks, new { htmlAttributes = new { @class = "big-field", required = "This Field is Required" } })
                     </td>
                 </tr>
                 <tr>
                     <td valign="top" class="cell-one">Fee Paid:</td>
                     <td class="two-cells">
-                        @Html.RadioButtonFor(m => m.fees, "Yes", new { @class = "none", required = "This Field is Required" }) Yes
-                        @Html.RadioButtonFor(m => m.fees, "No", new { @class = "none" }) No
+                        @Html.RadioButtonFor(m => m.Student.fees, "Yes", new { @class = "none", required = "This Field is Required" }) Yes
+                        @Html.RadioButtonFor(m => m.Student.fees, "No", new { @class = "none" }) No
 
                     </td>
                 </tr>
@@ -81,8 +83,8 @@
                     <td class="heading-cell">Pass/Fail</td>
                     <td class="heading-cell">Edit</td>
                 </tr>
-                @foreach (var item in ViewBag.data)
-                {
+                @foreach (var item in Model.Students)
+                    {
                     <tr>
                         <td class="grid-cell"><input type="checkbox" name="ID" value="@item.id" /></td>
                         <td class="grid-cell">@item.name</td>
@@ -103,9 +105,9 @@
 
 
                         </td>
-                        <td class="grid-cell"><a href="#">Edit</a></td>
+                        <td class="grid-cell">  <a href="@Url.Action("Edit", new { id = item.id})">Edit</a></td>
                     </tr>
-                }
+                    }
 
 
             </table>
